@@ -41,13 +41,7 @@
   }
   nav.scrolled { height: 65px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px; font-weight: 700;
-    text-decoration: none; letter-spacing: -0.5px;
-  }
-  .nav-logo span.proto { color: var(--navy); }
-  .nav-logo span.call { color: var(--green); }
+  .nav-logo img { height: 38px; display: block; }
 
   .nav-links { display: flex; gap: 30px; align-items: center; }
   .nav-links a {
@@ -106,7 +100,7 @@
     margin-bottom: 24px; color: var(--navy);
   }
   .hero h1 em { font-style: normal; color: var(--green); }
-  .hero p { font-size: 19px; color: var(--gray); margin-bottom: 40px; max-width: 500px; }
+  .hero p { font-size: 19px; color: var(--gray); margin-bottom: 40px; max-width: 500px; font-weight: 300; }
 
   .btn-primary {
     background: var(--green); color: white;
@@ -150,8 +144,30 @@
   /* PRICING */
   .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 900px; margin: 60px auto; }
   .plan { border: 1px solid var(--border); border-radius: 20px; padding: 50px 40px; position: relative; transition: 0.3s; }
+  .plan:hover { border-color: var(--navy); box-shadow: 0 10px 30px rgba(13,31,78,0.08); }
   .plan.featured { background: var(--navy); color: white; transform: scale(1.05); box-shadow: 0 20px 40px rgba(13,31,78,0.2); }
   .plan-badge { position: absolute; top: 20px; right: 20px; background: var(--green); color: white; padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+
+  .plan-feature-list { list-style: none; margin: 30px 0; font-size: 15px; }
+  .plan-feature-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .plan-feature-list li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; }
+  .plan.featured .plan-feature-list { opacity: 0.9; }
+
+  .plan-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .plan.featured .plan-divider { border-color: rgba(255,255,255,0.1); }
+
+  .plan-calls-badge {
+    display: inline-block;
+    background: rgba(0,196,140,0.1);
+    color: var(--green-dark);
+    font-size: 13px; font-weight: 700;
+    padding: 6px 16px; border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .plan.featured .plan-calls-badge {
+    background: rgba(0,196,140,0.2);
+    color: var(--green);
+  }
 
   /* FAQ */
   .faq-container { max-width: 800px; margin: 50px auto 0; }
@@ -159,24 +175,61 @@
   .faq-question { padding: 20px 25px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
   .faq-answer { padding: 0 25px 20px; color: var(--gray); font-size: 15px; display: none; }
 
+  /* CTA */
+  .cta-section {
+    background: var(--navy); padding: 100px 5%; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,196,140,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+    color: white; line-height: 1.15; margin-bottom: 20px; position: relative;
+  }
+  .cta-section p { font-size: 17px; color: rgba(255,255,255,0.55); margin-bottom: 40px; font-weight: 300; position: relative; }
+
+  .btn-white {
+    background: white; color: var(--navy);
+    padding: 18px 40px; border-radius: 8px;
+    font-size: 16px; font-weight: 700;
+    text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: inline-block; position: relative;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   @media (max-width: 1024px) {
     .hero::before, .hero-visual { display: none; }
     .hero { text-align: center; justify-content: center; }
     .hero p { margin-left: auto; margin-right: auto; }
     .steps, .pricing-grid { grid-template-columns: 1fr; }
+    .plan.featured { transform: scale(1); }
   }
 </style>
 </head>
 <body>
 
 <nav id="navbar">
-  <a href="#" class="nav-logo"><span class="proto">Proto</span><span class="call">Call</span></a>
+  <a href="#" class="nav-logo">
+    <img src="protocall-logo-v4.svg" alt="ProtoCall">
+  </a>
   <div class="nav-links">
     <a href="#how">Λειτουργία</a>
     <a href="#features">Δυνατότητες</a>
     <a href="#pricing">Τιμές</a>
     <a href="#faq">FAQ</a>
-    <a href="#trial" class="nav-cta">Δωρεάν Δοκιμή</a>
+    <a href="#contact" class="nav-cta">Επικοινωνία</a>
   </div>
 </nav>
 
@@ -184,81 +237,81 @@
   <div class="hero-content">
     <div class="hero-badge">Διαθέσιμο τώρα στην Ελλάδα</div>
     <h1>Το τηλέφωνό σας απαντάει <em>πάντα.</em></h1>
-    <p>Μην χάνετε ποτέ ξανά πελάτη. Η **ProtoCall** απαντάει, κρατάει στοιχεία ή κλείνει ραντεβού απευθείας στο ημερολόγιό σας.</p>
+    <p>Μην χάνετε ποτέ ξανά πελάτη. Η ProtoCall απαντάει, κρατάει στοιχεία και κλείνει ραντεβού απευθείας στο ημερολόγιό σας.</p>
     <div class="hero-actions">
-      <a href="#trial" class="btn-primary">Ξεκινήστε τη Δωρεάν Δοκιμή</a>
+      <a href="#contact" class="btn-primary">Ξεκινήστε σήμερα</a>
     </div>
   </div>
 
   <div class="hero-visual">
     <div class="notif-card">
       <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-        <div style="background:var(--navy); padding:10px; border-radius:10px;">📅</div>
+        <div style="background:var(--navy); padding:10px; border-radius:10px; font-size:20px;">📅</div>
         <div>
           <div style="font-weight:700; font-size:14px;">Νέο Ραντεβού — ProtoCall</div>
           <div style="font-size:12px; color:var(--gray);">Μόλις τώρα</div>
         </div>
       </div>
-      <div style="background:var(--off-white); padding:15px; border-radius:10px; font-size:14px;">
-        <strong>Πελάτης:</strong> Μαρία Δ.<br>
-        <strong>Υπηρεσία:</strong> Google Calendar Sync<br>
-        <strong>Κατάσταση:</strong> <span style="color:var(--green)">Καταχωρήθηκε αυτόματα</span>
+      <div style="background:var(--off-white); padding:15px; border-radius:10px; font-size:14px; line-height:1.8;">
+        <strong>Πελάτης:</strong> Μαρία Δημητρίου<br>
+        <strong>Τηλέφωνο:</strong> 6944 123 456<br>
+        <strong>Αίτημα:</strong> Ραντεβού για Παρασκευή πρωί<br>
+        <strong>Κατάσταση:</strong> <span style="color:var(--green); font-weight:700;">✓ Καταχωρήθηκε αυτόματα</span>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section" id="how">
-  <div class="text-center" style="text-align:center;">
+  <div style="text-align:center;">
     <div class="section-label">Η Διαδικασία</div>
-    <h2 style="font-family:'Playfair Display'; font-size:40px;">Πώς λειτουργεί;</h2>
+    <h2 style="font-family:'Playfair Display'; font-size:40px; letter-spacing:-0.5px;">Πώς λειτουργεί;</h2>
   </div>
   <div class="steps">
     <div class="step">
       <div class="step-num">01</div>
-      <h3>Εκτροπή</h3>
-      <p>Όταν δεν μπορείτε να απαντήσετε, η κλήση μεταφέρεται στην **ProtoCall**.</p>
+      <h3 style="font-family:'Playfair Display'; font-size:22px; margin-bottom:12px;">Εκτροπή</h3>
+      <p style="color:var(--gray);">Όταν δεν μπορείτε να απαντήσετε, η κλήση μεταφέρεται αυτόματα στην ProtoCall.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <h3>Συνομιλία</h3>
-      <p>Ο AI βοηθός μιλάει με τον πελάτη, αναγνωρίζει τον αριθμό του και καταγράφει το αίτημα.</p>
+      <h3 style="font-family:'Playfair Display'; font-size:22px; margin-bottom:12px;">Συνομιλία</h3>
+      <p style="color:var(--gray);">Ο AI βοηθός μιλάει ελληνικά με τον πελάτη, αναγνωρίζει τον αριθμό του και καταγράφει το αίτημα.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <h3>Δράση</h3>
-      <p>Κλείνει ραντεβού, ακυρώνει υπάρχοντα ή σας στέλνει σύνοψη της κλήσης.</p>
+      <h3 style="font-family:'Playfair Display'; font-size:22px; margin-bottom:12px;">Δράση</h3>
+      <p style="color:var(--gray);">Κλείνει ραντεβού, ακυρώνει υπάρχοντα ή σας στέλνει σύνοψη της κλήσης στο email σας.</p>
     </div>
   </div>
 </section>
 
 <section class="section" id="features" style="background: var(--off-white); border-radius: 60px 60px 0 0;">
-  <div class="text-center" style="text-align:center;">
+  <div style="text-align:center;">
     <div class="section-label">Δυνατότητες</div>
-    <h2 style="font-family:'Playfair Display'; font-size:40px;">Περισσότερα από μια απλή καταγραφή</h2>
-    <p style="color: var(--gray); margin-top:10px;">Η **ProtoCall** είναι ένας πλήρης ψηφιακός γραμματέας που εξελίσσεται καθημερινά.</p>
+    <h2 style="font-family:'Playfair Display'; font-size:40px; letter-spacing:-0.5px;">Περισσότερα από μια απλή καταγραφή</h2>
+    <p style="color: var(--gray); margin-top:10px; font-size:17px; font-weight:300;">Ένας πλήρης ψηφιακός γραμματέας που εξελίσσεται καθημερινά.</p>
   </div>
-  
   <div class="features-grid">
     <div class="feature-box" style="background: white;">
-      <div style="font-size:30px; margin-bottom:20px;">🗓️</div>
+      <div style="font-size:32px; margin-bottom:20px;">🗓️</div>
       <h3>Google Calendar Sync</h3>
       <p>Σύνδεση με το ημερολόγιό σας για αυτόματο κλείσιμο ραντεβού στις διαθέσιμες ώρες σας.</p>
     </div>
     <div class="feature-box" style="background: white;">
-      <div style="font-size:30px; margin-bottom:20px;">🚫</div>
+      <div style="font-size:32px; margin-bottom:20px;">🚫</div>
       <h3>Αυτοματοποιημένη Ακύρωση</h3>
-      <p>Ο πελάτης μπορεί να καλέσει και να ζητήσει ακύρωση ή αλλαγή ραντεβού. Η **ProtoCall** το αναγνωρίζει και ενημερώνει το σύστημα.</p>
+      <p>Ο πελάτης μπορεί να καλέσει και να ζητήσει ακύρωση ή αλλαγή ραντεβού. Η ProtoCall το αναγνωρίζει και ενημερώνει το ημερολόγιο.</p>
     </div>
     <div class="feature-box" style="background: white;">
-      <div style="font-size:30px; margin-bottom:20px;">🆔</div>
+      <div style="font-size:32px; margin-bottom:20px;">🆔</div>
       <h3>Αναγνώριση Καλούντος</h3>
       <p>Αυτόματη καταγραφή και αποθήκευση του αριθμού τηλεφώνου για να μπορείτε να καλέσετε πίσω με ένα κλικ.</p>
     </div>
     <div class="feature-box" style="background: white;">
-      <div style="font-size:30px; margin-bottom:20px;">🚀</div>
-      <h3>In Development</h3>
-      <p>Βρισκόμαστε σε διαρκή ανάπτυξη. Νέες δυνατότητες και αυτοματισμοί προστίθενται συνεχώς για να καλύπτουν κάθε ανάγκη.</p>
+      <div style="font-size:32px; margin-bottom:20px;">🚀</div>
+      <h3>Συνεχής Εξέλιξη</h3>
+      <p>Νέες δυνατότητες και αυτοματισμοί προστίθενται συνεχώς για να καλύπτουν κάθε ανάγκη της επιχείρησής σας.</p>
     </div>
   </div>
 </section>
@@ -266,31 +319,39 @@
 <section class="section" id="pricing">
   <div style="text-align: center;">
     <div class="section-label">Τιμολόγηση</div>
-    <h2 style="font-family:'Playfair Display'; font-size:40px; margin-bottom:10px;">Επιλέξτε το πλάνο σας</h2>
+    <h2 style="font-family:'Playfair Display'; font-size:40px; margin-bottom:10px; letter-spacing:-0.5px;">Επιλέξτε το πλάνο σας</h2>
+    <p style="color:var(--gray); font-size:16px; font-weight:300;">Και τα δύο πλάνα περιλαμβάνουν όλες τις δυνατότητες.</p>
   </div>
   <div class="pricing-grid">
     <div class="plan">
-      <div style="font-size:12px; font-weight:800; color:var(--gray); text-transform:uppercase; margin-bottom:15px;">Starter</div>
-      <div style="font-size:48px; font-weight:900; font-family:'Playfair Display';">€49<span style="font-size:16px; font-weight:400;">/μήνα</span></div>
-      <ul style="list-style:none; margin:30px 0; font-size:15px; color:var(--gray);">
-          <li style="margin-bottom:10px;">✓ 100 κλήσεις / μήνα</li>
-          <li style="margin-bottom:10px;">✓ Αναγνώριση αριθμού καλούντος</li>
-          <li style="margin-bottom:10px;">✓ Email Notifications</li>
-          <li style="margin-bottom:10px;">✓ Custom Χαιρετισμός</li>
+      <div class="plan-calls-badge">📞 100 κλήσεις / μήνα</div>
+      <div style="font-size:12px; font-weight:800; color:var(--gray); text-transform:uppercase; margin-bottom:15px; letter-spacing:2px;">Starter</div>
+      <div style="font-size:52px; font-weight:900; font-family:'Playfair Display'; letter-spacing:-1px;">€49<span style="font-size:16px; font-weight:400; color:var(--gray);">/μήνα</span></div>
+      <hr class="plan-divider">
+      <ul class="plan-feature-list">
+        <li>Email notifications</li>
+        <li>Custom χαιρετισμός</li>
+        <li>Google Calendar Sync</li>
+        <li>Αναγνώριση καλούντος</li>
+        <li>Αυτόματη ακύρωση ραντεβού</li>
       </ul>
-      <a href="#trial" class="btn-primary" style="width:100%; text-align:center;">7 ημέρες Δωρεάν</a>
+      <a href="mailto:info@protocall.gr" class="btn-primary" style="width:100%; text-align:center; display:block;">Επικοινωνήστε μαζί μας</a>
     </div>
     <div class="plan featured">
       <div class="plan-badge">Δημοφιλές</div>
-      <div style="font-size:12px; font-weight:800; color:var(--green); text-transform:uppercase; margin-bottom:15px;">Professional</div>
-      <div style="font-size:48px; font-weight:900; font-family:'Playfair Display';">€79<span style="font-size:16px; font-weight:400; color:rgba(255,255,255,0.6);">/μήνα</span></div>
-      <ul style="list-style:none; margin:30px 0; font-size:15px; opacity:0.9;">
-          <li style="margin-bottom:10px;">✓ Απεριόριστες κλήσεις</li>
-          <li style="margin-bottom:10px;">✓ <strong>Google Calendar Integration</strong></li>
-          <li style="margin-bottom:10px;">✓ <strong>Διαχείριση & Ακύρωση Ραντεβού</strong></li>
-          <li style="margin-bottom:10px;">✓ Προτεραιότητα στο Support</li>
+      <div class="plan-calls-badge">♾️ Απεριόριστες κλήσεις</div>
+      <div style="font-size:12px; font-weight:800; color:var(--green); text-transform:uppercase; margin-bottom:15px; letter-spacing:2px;">Professional</div>
+      <div style="font-size:52px; font-weight:900; font-family:'Playfair Display'; letter-spacing:-1px;">€79<span style="font-size:16px; font-weight:400; color:rgba(255,255,255,0.5);">/μήνα</span></div>
+      <hr class="plan-divider">
+      <ul class="plan-feature-list">
+        <li>Email notifications</li>
+        <li>Custom χαιρετισμός</li>
+        <li>Google Calendar Sync</li>
+        <li>Αναγνώριση καλούντος</li>
+        <li>Αυτόματη ακύρωση ραντεβού</li>
+        <li><strong>Προτεραιότητα στο Support</strong></li>
       </ul>
-      <a href="#trial" class="btn-primary" style="width:100%; text-align:center; background:var(--green);">7 ημέρες Δωρεάν</a>
+      <a href="mailto:info@protocall.gr" class="btn-primary" style="width:100%; text-align:center; display:block; background:var(--green);">Επικοινωνήστε μαζί μας</a>
     </div>
   </div>
 </section>
@@ -298,30 +359,38 @@
 <section class="section" id="faq">
   <div style="text-align:center;">
     <div class="section-label">Συχνές Ερωτήσεις</div>
-    <h2 style="font-family:'Playfair Display'; font-size:40px;">Μάθετε περισσότερα</h2>
+    <h2 style="font-family:'Playfair Display'; font-size:40px; letter-spacing:-0.5px;">Μάθετε περισσότερα</h2>
   </div>
   <div class="faq-container">
     <div class="faq-item">
-      <div class="faq-question">Μπορεί η **ProtoCall** να κλείσει ραντεβού; <span>+</span></div>
+      <div class="faq-question">Μπορεί η ProtoCall να κλείσει ραντεβού; <span>+</span></div>
       <div class="faq-answer">Ναι, συνδέεται με το Google Calendar σας, βλέπει τα κενά σας και κλείνει ραντεβού αυτόματα, στέλνοντας επιβεβαίωση σε εσάς και τον πελάτη.</div>
     </div>
     <div class="faq-item">
       <div class="faq-question">Τι γίνεται αν ο πελάτης θέλει να ακυρώσει; <span>+</span></div>
-      <div class="faq-answer">Η **ProtoCall** αναγνωρίζει τον πελάτη από τον αριθμό του, βρίσκει το ραντεβού και μπορεί να το ακυρώσει ή να το μεταφέρει, ελευθερώνοντας χρόνο στο ημερολόγιό σας.</div>
+      <div class="faq-answer">Η ProtoCall αναγνωρίζει τον πελάτη από τον αριθμό του, βρίσκει το ραντεβού και μπορεί να το ακυρώσει ή να το μεταφέρει, ελευθερώνοντας χρόνο στο ημερολόγιό σας.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-question">Η υπηρεσία είναι τελική ή προστίθενται νέα πράγματα; <span>+</span></div>
-      <div class="faq-answer">Η **ProtoCall** βρίσκεται σε διαρκή ανάπτυξη (in development). Αυτό σημαίνει ότι το σύστημα βελτιώνεται καθημερινά και νέες δυνατότητες γίνονται διαθέσιμες στους συνδρομητές μας χωρίς επιπλέον κόστος.</div>
+      <div class="faq-question">Η υπηρεσία είναι τελική ή προστίθενται νέες δυνατότητες; <span>+</span></div>
+      <div class="faq-answer">Η ProtoCall βρίσκεται σε διαρκή ανάπτυξη. Νέες δυνατότητες γίνονται διαθέσιμες στους συνδρομητές μας χωρίς επιπλέον κόστος.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Πόσο γρήγορα μπορώ να ξεκινήσω; <span>+</span></div>
+      <div class="faq-answer">Η ενεργοποίηση γίνεται εντός 24 ωρών από την επικοινωνία σας μαζί μας. Δεν απαιτείται εξοπλισμός ή τεχνικές γνώσεις.</div>
     </div>
   </div>
 </section>
 
-<footer style="background:var(--navy); color:white; padding:80px 5% 40px; text-align:center;">
-    <h2 style="font-family:'Playfair Display'; font-size:32px; margin-bottom:20px;">ProtoCall</h2>
-    <p style="opacity:0.6; margin-bottom:40px;">Η Πρώτη Φωνή της Επιχείρησής σας.</p>
-    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:40px; font-size:13px; opacity:0.4;">
-        © 2026 ProtoCall AI. Συνεχώς εξελισσόμενη τεχνολογία εξυπηρέτησης.
-    </div>
+<section class="cta-section" id="contact">
+  <h2>Έτοιμοι να μην χάσετε άλλη κλήση;</h2>
+  <p>Επικοινωνήστε μαζί μας και ξεκινήστε σήμερα.</p>
+  <a href="mailto:info@protocall.gr" class="btn-white">info@protocall.gr</a>
+</section>
+
+<footer style="background:#080f26; color:white; padding:50px 5% 30px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+  <img src="protocall-logo-v4.svg" alt="ProtoCall" style="height:32px; filter:brightness(0) invert(1);">
+  <p style="font-size:13px; opacity:0.35;">© 2026 ProtoCall · info@protocall.gr</p>
+  <p style="font-size:13px; opacity:0.35;">Η Πρώτη Φωνή της Επιχείρησής σας</p>
 </footer>
 
 <script>
@@ -329,9 +398,9 @@
     const nav = document.getElementById('navbar');
     if (window.scrollY > 50) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
-    
+
     document.querySelectorAll('.section').forEach(section => {
-      if (section.getBoundingClientRect().top < window.innerHeight * 0.8) {
+      if (section.getBoundingClientRect().top < window.innerHeight * 0.85) {
         section.classList.add('visible');
       }
     });
@@ -340,11 +409,15 @@
   document.querySelectorAll('.faq-question').forEach(item => {
     item.addEventListener('click', () => {
       const answer = item.nextElementSibling;
+      const span = item.querySelector('span');
       const isOpen = answer.style.display === 'block';
       document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+      document.querySelectorAll('.faq-question span').forEach(s => s.textContent = '+');
       answer.style.display = isOpen ? 'none' : 'block';
+      span.textContent = isOpen ? '+' : '−';
     });
   });
+
   window.dispatchEvent(new Event('scroll'));
 </script>
 
