@@ -582,4 +582,12 @@
   document.querySelectorAll('.faq-question').forEach(item => {
     item.addEventListener('click', () => {
       const answer = item.nextElementSibling;
-      const span = item.query
+      const span = item.querySelector('span');
+      const isOpen = answer.style.display === 'block';
+      document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+      document.querySelectorAll('.faq-question span').forEach(s => s.textContent = '+');
+      answer.style.display = isOpen ? 'none' : 'block';
+      span.textContent = isOpen ? '+' : '−';
+    });
+  });
+</script></body></html>
